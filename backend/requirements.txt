@@ -1,27 +1,40 @@
-﻿fastapi
+﻿# Core dependencies.
+#
+# Kept deliberately small: several packages that appear in most data-science
+# stacks are absent here because nothing in this codebase imports them.
+# PDF generation uses reportlab, not weasyhtml (which needs system libraries and
+# has no Python 3.14 distribution). Geospatial work is done on plain lat/lon
+# maths, so geopandas/shapely/pyproj are not required.
+
+# ---- Web ----
+fastapi
 uvicorn[standard]
+python-multipart
+
+# ---- Data / settings ----
 sqlalchemy[asyncio]
-asyncpg
-aiosqlite
-alembic
-pydantic-settings
 pydantic
-httpx
-pandas
-numpy
+pydantic-settings
+
+# ---- Database drivers ----
+asyncpg           # PostgreSQL, production
+aiosqlite          # SQLite, local demo fallback
+
+# ---- Agent orchestration ----
 langgraph
 langchain-core
-langchain-openai
-langchain-google-genai
-python-multipart
-jinja2
-weasyhtml
-reportlab
-geopandas
-shapely
-pyproj
-python-jose[cryptography]
-passlib[bcrypt]
-websockets
+
+# ---- HTTP client for the integration probes ----
+httpx
+
+# ---- Reporting ----
+reportlab          # PDF situation reports
+websockets         # WebSocket alert stream
+
+# ---- Test suite ----
 pytest
 pytest-asyncio
+
+# LLM SDKs are NOT listed here. app/tools/llm_tool.py imports them lazily and
+# only when LLM_PROVIDER selects that provider, so a credential-free install
+# stays small. Install requirements-llm.txt if you enable a provider.

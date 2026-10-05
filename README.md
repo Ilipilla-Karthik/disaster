@@ -91,7 +91,30 @@ machine.
 ## Deployment
 
 - Backend → Render (see `render.yaml`)
-- Frontend → Vercel
+- Frontend → Vercel (see `frontend/vercel.json`)
+
+### Dependency policy
+
+`requirements.txt` is intentionally minimal, and `.python-version` pins **3.11**.
+Both matter on Render: the platform defaults to Python 3.14, where several
+transitive dependencies publish no wheel, and `pip install` then fails with
+`No matching distribution found` — an error invisible unless you read the build
+log.
+
+Notable exclusions, each verified as genuinely unimported rather than guessed:
+
+- **weasyhtml** — nothing imports it. PDF output uses `reportlab`, which is a
+  pure-Python wheel and needs no system libraries.
+- **geopandas / shapely / pyproj** — geospatial work runs on plain lat/lon
+  maths, so no projection stack is needed.
+- **pandas / numpy** — no dataframes anywhere.
+- **LLM SDKs** — `app/tools/llm_tool.py` imports `openai` / `google-genai` /
+  `anthropic` lazily, only when `LLM_PROVIDER` selects them. The base install
+  needs none of them. Install `requirements-llm.txt` to enable a provider.
+
+Because the lazy imports are conditional, enabling a provider without also
+installing `requirements-llm.txt` raises `ImportError` at call time rather than
+at boot. Add both together.
 
 ## Security notes
 

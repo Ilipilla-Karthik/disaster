@@ -7,6 +7,10 @@ services:
   - type: web
     name: disaster-response-api
     runtime: python
+    # Pinned deliberately. The platform default is 3.14, for which several
+    # transitive dependencies (reportlab among them) still publish no wheel,
+    # and a failed install here is silent for anyone who does not read logs.
+    pythonVersion: 3.11.12
     plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt

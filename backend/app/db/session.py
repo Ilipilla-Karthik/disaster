@@ -72,8 +72,11 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 async def init_db() -> None:
     """Create tables for all registered models.
 
-    A development/demo convenience. Production deployments should use Alembic
-    migrations (``alembic upgrade head``) which is already in requirements.
+    A development/demo convenience, enabled by AUTO_CREATE_TABLES. It infers the
+    schema from the model definitions, so it will not evolve an existing
+    database safely -- a production deployment that changes a model needs a
+    real migration tool (Alembic) before it changes the schema, otherwise the
+    existing tables are simply left as they are.
     """
     from app.models import models  # noqa: F401  (registers tables on Base.metadata)
 

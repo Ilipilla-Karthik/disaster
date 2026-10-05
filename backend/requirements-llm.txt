@@ -1,0 +1,14 @@
+# Optional LLM provider SDKs.
+#
+# The system runs fully without any of these. Extraction and narration fall
+# back to deterministic logic when LLM_PROVIDER=none, which is the default and
+# the recommended setting for production: no LLM participates in scoring,
+# capacity or allocation, so the safety gates cannot be influenced by model
+# output.
+#
+# Install only if you actually want an LLM-backed provider:
+#     pip install -r requirements.txt -r requirements-llm.txt
+
+openai           # LLM_PROVIDER=openai     (OPENAI_API_KEY)
+google-genai     # LLM_PROVIDER=gemini     (GEMINI_API_KEY)
+anthropic        # LLM_PROVIDER=anthropic  (ANTHROPIC_API_KEY)
