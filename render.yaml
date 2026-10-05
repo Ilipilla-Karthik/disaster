@@ -1,0 +1,46 @@
+# Render blueprint for the Disaster Response backend.
+#
+# The API is a stateless FastAPI app, so it scales horizontally. PostgreSQL is
+# provisioned as a managed instance and injected via DATABASE_URL.
+
+services:
+  - type: web
+    name: disaster-response-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      # Managed PostgreSQL. Replace with your own instance if preferred.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: disaster-response-db
+          property: connectionString
+
+      # Fail loudly instead of silently degrading to a local SQLite file.
+      - key: DB_FALLBACK_TO_SQLITE
+        value: "false"
+      - key: AUTO_CREATE_TABLES
+        value: "true"
+      - key: AUTO_SEED
+        value: "true"
+
+      # Set these in the Render dashboard (do NOT commit real values).
+      - key: SECRET_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: "none"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: WEATHER_API_KEY
+        sync: false
+
+databases:
+  - name: disaster-response-db
+    databaseName: disaster_response
+    user: disaster
+    plan: free

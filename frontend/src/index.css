@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/*
+ * Operator console theme. Colour is used to carry provenance, so the palette is
+ * deliberately small: an unverified claim must never look like a confirmed one.
+ */
+:root {
+  --surface: #0b1220;
+  --surface-2: #111c2e;
+  --surface-3: #17263c;
+  --border: #22334d;
+  --text: #e2e8f0;
+  --muted: #8ba0bd;
+  --accent: #38bdf8;
+
+  /* Provenance colours. These meanings are fixed across the whole UI. */
+  --known: #34d399;
+  --inferred: #fbbf24;
+  --unverified: #fb923c;
+  --unknown: #94a3b8;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.leaflet-container {
+  background: #0f1a2b;
+  font: inherit;
+}
+
+/* Keep the map controls legible on the dark surface. */
+.leaflet-bar a {
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.leaflet-bar a:hover {
+  background: var(--surface-3) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(11, 18, 32, 0.8) !important;
+  color: var(--muted) !important;
+}
+.leaflet-control-attribution a {
+  color: var(--accent) !important;
+}

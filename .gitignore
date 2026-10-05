@@ -1,0 +1,42 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Local databases ----
+# SQLite is a local demo fallback only. Never commit one: it contains
+# operational rows and would be silently deployed as seed data.
+*.db
+*.sqlite
+*.sqlite3
+
+# ---- Secrets / local config ----
+# Only .env.example (no real values) is tracked.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+
+# ---- Node / frontend ----
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.local
+
+# ---- Editors / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ---- Scratch working copy ----
+# Duplicate of backend/ kept for local reference only.
+backend_copy/
