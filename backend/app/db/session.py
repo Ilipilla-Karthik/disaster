@@ -1,4 +1,4 @@
-﻿"""Async database session and engine setup.
+"""Async database session and engine setup.
 
 Supports PostgreSQL (asyncpg) for deployment and SQLite (aiosqlite) for
 zero-dependency local demonstration. The public surface is intentionally small:
@@ -8,6 +8,7 @@ zero-dependency local demonstration. The public surface is intentionally small:
 from __future__ import annotations
 
 import logging
+import re
 from typing import AsyncGenerator
 
 from sqlalchemy import text
@@ -38,6 +39,21 @@ def _async_url() -> str:
 
 ASYNC_URL = _async_url()
 USING_SQLITE = ASYNC_URL.startswith("sqlite")
+
+
+def safe_url(url: str) -> str:
+    """Return ``url`` with any password replaced, for logs and HTTP responses.
+
+    ``/health`` is unauthenticated and its response is meant to report which
+    database is actually in use. A raw SQLAlchemy URL carries the password, so
+    reporting it verbatim publishes database credentials to anyone who curls the
+    service. Host, port and database name stay visible because they are what
+    makes the diagnostic useful; the password never is.
+
+    The match is greedy so a password containing ``@`` is consumed whole rather
+    than redacted only up to its first ``@``.
+    """
+    return re.sub(r"(://[^:/@\s]+):.*@", r"\1:***@", url)
 
 engine: AsyncEngine = create_async_engine(
     ASYNC_URL,
@@ -82,7 +98,7 @@ async def init_db() -> None:
 
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    logger.info("Database schema ensured at %s", ASYNC_URL)
+    logger.info("Database schema ensured at %s", safe_url(ASYNC_URL))
 
 
 async def verify_connection() -> bool:

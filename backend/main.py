@@ -40,7 +40,7 @@ logger = logging.getLogger("app")
 
 async def _prepare_database() -> dict[str, Any]:
     """Connect, fall back if permitted, create tables, seed."""
-    info: dict[str, Any] = {"requested": db_session.ASYNC_URL, "fallback_used": False}
+    info: dict[str, Any] = {"requested": db_session.safe_url(db_session.ASYNC_URL), "fallback_used": False}
 
     if not await db_session.verify_connection():
         if settings.DB_FALLBACK_TO_SQLITE:
@@ -65,7 +65,7 @@ async def _prepare_database() -> dict[str, Any]:
         async with db_session.AsyncSessionLocal() as session:
             info["seed"] = await seed_all(session)
     info["available"] = True
-    info["in_use"] = db_session.ASYNC_URL
+    info["in_use"] = db_session.safe_url(db_session.ASYNC_URL)
     return info
 
 
@@ -75,7 +75,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.database = info
     logger.info(
         "Startup complete: database=%s fallback=%s",
-        info.get("in_use"),
+        db_session.safe_url(db_session.ASYNC_URL),
         info.get("fallback_used"),
     )
     yield
@@ -124,8 +124,10 @@ async def health() -> JSONResponse:
         "status": "ok" if db_ok else "degraded",
         "version": settings.VERSION,
         "database": {
-            "in_use": db_session.ASYNC_URL,
-            "requested": info.get("requested", db_session.ASYNC_URL),
+            # safe_url(): /health is unauthenticated, so the raw DSN (and the
+            # database password inside it) must never appear in this response.
+            "in_use": db_session.safe_url(db_session.ASYNC_URL),
+            "requested": info.get("requested") or db_session.safe_url(db_session.ASYNC_URL),
             "reachable": db_ok,
             "fallback_used": info.get("fallback_used", False),
             "sqlite": db_session.USING_SQLITE,

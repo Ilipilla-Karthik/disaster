@@ -90,8 +90,18 @@ machine.
 
 ## Deployment
 
-- Backend → Render (see `render.yaml`)
-- Frontend → Vercel (see `frontend/vercel.json`)
+- Backend → Render (`render.yaml`), live at `disaster-response-api-yp3q.onrender.com`
+- Frontend → Vercel (`frontend/vercel.json`)
+
+`frontend/vercel.json` proxies `/api`, `/health`, `/safety` and `/integrations`
+to the Render host. The frontend needs **no environment variables**: `api.ts`
+requests relative paths, so the browser stays same-origin and CORS never applies.
+That means the Render hostname appears in exactly one place — `vercel.json` —
+and changing it means editing that file and re-pushing.
+
+Note that the earlier placeholder service name `disaster-response-api` is *not*
+the live one; Render assigned `disaster-response-api-yp3q` when the Blueprint
+was applied.
 
 ### Dependency policy
 
@@ -127,4 +137,18 @@ genuine.
 
 The SQLite fallback should be disabled (`DB_FALLBACK_TO_SQLITE=false`) in
 production so a database outage fails loudly instead of silently degrading to
-local files.
+local files. It is already disabled in `render.yaml`.
+
+### Secret disclosure
+
+`/health` is unauthenticated by necessity (uptime checks) and reports which
+database is in use, which is what makes it useful. It previously returned the
+raw SQLAlchemy DSN, publishing the production database password to anyone who
+curled it. `app/db/session.py:safe_url()` now redacts the password while keeping
+host, port and database name visible, and is applied to every log line and
+response that mentions the DSN.
+
+`tests/test_no_secret_disclosure.py` guards this, including a check that scans
+public endpoint responses for whatever secrets are actually configured in the
+environment — so a leak of any key fails the suite, not just the database
+password.
