@@ -1,0 +1,6 @@
+shelter_id,name,location,district,latitude,longitude,capacity,current_occupancy,operational_status,is_accessible,medical_support,contact_info
+SH-A,Shelter A,Zone B Community Hall,Example District,12.9620,77.6070,200,160,operational,true,false,Zone B Community Hall - shelter warden on duty
+SH-B,Shelter B,Zone C School Grounds,Example District,12.9500,77.6050,150,60,operational,true,true,Zone C School Grounds - medical tent staffed
+SH-C,Shelter C,Zone A Sports Complex,Example District,12.9760,77.5900,300,110,operational,true,false,Zone A Sports Complex - municipal operations desk
+SH-D,Shelter D,Hassan District Auditorium,Hassan,12.9750,75.6010,500,40,operational,true,false,Hassan District Auditorium - district relief officer
+SH-E,Shelter E,Mysuru Sports Stadium,Mysuru,12.3010,76.6410,400,0,standby,true,true,Mysuru Sports Stadium - staged, not yet opened

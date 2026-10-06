@@ -1,0 +1,82 @@
+{
+  "description": "Raw multi-source reports (Requirement 2). Unstructured text is preserved verbatim: these are what the intake agent normalizes into incidents.json. At least four distinct source types, including one near-duplicate pair to demonstrate TC-02.",
+  "reports": [
+    {
+      "report_id": "SRC-001",
+      "source": "emergency_call",
+      "received_at": "2026-10-05T08:12:00Z",
+      "raw_text": "Flood water has entered approximately 20 houses in Zone A. Around 40 residents may require evacuation. The main access road is partially flooded.",
+      "reporter": "municipal call centre, operator 41",
+      "structured_fields": null
+    },
+    {
+      "report_id": "SRC-002",
+      "source": "field_team",
+      "received_at": "2026-10-05T09:05:00Z",
+      "raw_text": "12 people stranded on the second floor of a residential block in Zone B. Water rising slowly, access road still passable. Will hold position and monitor.",
+      "reporter": "Field Team TEAM-002",
+      "structured_fields": null
+    },
+    {
+      "report_id": "SRC-003",
+      "source": "citizen_report",
+      "received_at": "2026-10-05T09:31:00Z",
+      "raw_text": "people stuck in a building in Zone B, maybe a dozen. need help getting them out",
+      "reporter": "public hotline, unverified caller",
+      "structured_fields": null,
+      "note": "Deliberately vague: no count, no floor, no time. Duplicate of SRC-002 within the 30-minute window. Exercises fuzzy text matching (token overlap) rather than exact equality."
+    },
+    {
+      "report_id": "SRC-004",
+      "source": "government_alert",
+      "received_at": "2026-10-05T09:48:00Z",
+      "raw_text": "District administration alert: Zone C village access road cut off due to flooding. Approximately 75 people potentially affected. No response unit currently assigned. Please advise.",
+      "reporter": "District Emergency Control Room",
+      "structured_fields": null
+    },
+    {
+      "report_id": "SRC-005",
+      "source": "iot_sensor",
+      "received_at": "2026-10-05T10:02:00Z",
+      "raw_text": "SENSOR FIRE-0x7F trip: sustained thermal rise, vegetation moisture below threshold, ambient wind 31 km/h gusting 44. No smoke signature from ground confirmation.",
+      "reporter": "sensor node FIRE-0x7F",
+      "structured_fields": {
+        "sensor_id": "FIRE-0x7F",
+        "value": "thermal_rise",
+        "wind_kmh": 31,
+        "wind_gust_kmh": 44
+      },
+      "note": "Machine source. Its readings are measurements, but the LOCATE of the fire is NOT human-confirmed, so the incident stays unverified."
+    },
+    {
+      "report_id": "SRC-006",
+      "source": "field_team",
+      "received_at": "2026-10-05T10:40:00Z",
+      "raw_text": "Slope failure on the hillside road near Hassan. Single carriageway affected, debris on carriageway. Did not see any vehicles involved but did not reach the site. Count unknown.",
+      "reporter": "Field Team TEAM-004",
+      "structured_fields": null,
+      "note": "Explicitly states what the reporter did NOT see. Must be preserved as unknown, not collapsed to 0 vehicles."
+    },
+    {
+      "report_id": "SRC-007",
+      "source": "sensor_network",
+      "received_at": "2026-10-05T10:50:00Z",
+      "raw_text": "River gauge G-14 exceeded alert stage 6.8m and rising. Rainfall 84mm in the last 3 hours.",
+      "reporter": "gauge G-14",
+      "structured_fields": {
+        "gauge_id": "G-14",
+        "level_m": 6.8,
+        "alert_stage_m": 6.4,
+        "rainfall_3h_mm": 84
+      },
+      "note": "Triggers the weather/escalation path used by TC-07."
+    }
+  ],
+  "source_types_covered": [
+    "emergency_call",
+    "field_team",
+    "citizen_report",
+    "government_alert",
+    "iot_sensor"
+  ]
+}

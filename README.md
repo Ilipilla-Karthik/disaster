@@ -88,6 +88,28 @@ Covers TC-01 through TC-06: intake and verification, duplicate detection,
 severity banding, resource allocation, the approval gate, and the resource state
 machine.
 
+## Emergency simulation dataset
+
+`sample_data/` holds the synthetic dataset as inspectable files, so it can be
+reviewed without starting the application:
+
+| File | Contents |
+| --- | --- |
+| `sources.json` | Raw reports from 5 source types, unstructured text preserved |
+| `incidents.json` | 8 normalized incidents across 5 disaster types and 4 districts |
+| `resources.csv` | 26 units — 5 boats, 4 teams, 6 ambulances, 8 vehicles, 3 shelter units |
+| `shelters.csv` | 5 shelters, deterministic capacity arithmetic |
+| `roads.csv` | 10 routes, `fact_status` separating known closure from inference |
+| `weather_timeline.json` | 6-row worsening timeline |
+
+See `sample_data/README.md` for the deliberate data traps — nulls that must not
+read as zero, unconfirmed roads that must not read as open, and a sensor report
+whose readings are certain while its location is not. Those exist to demonstrate
+the system does not invent certainty.
+
+`backend/app/db/seed.py` seeds an equivalent baseline automatically on first
+boot; the sample files are the reviewable form of the same dataset.
+
 ## Deployment
 
 - Backend → Render (`render.yaml`), live at `disaster-response-api-yp3q.onrender.com`

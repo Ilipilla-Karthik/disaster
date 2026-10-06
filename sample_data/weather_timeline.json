@@ -1,0 +1,94 @@
+{
+  "description": "Weather timeline for the Example District flood scenario. Ordered by timestamp so the sequence itself is the test fixture for TC-07: conditions worsen, and incidents must be reassessed as a result.",
+  "provenance_note": "These are RECORDS of what a weather integration returned. Where the integration is unconfigured the system runs in documented simulation mode and labels every output simulation_mode. Do not present these rows as live observations.",
+  "timeline": [
+    {
+      "timestamp": "2026-10-05T06:00:00Z",
+      "location": "Example District",
+      "condition": "heavy_rain",
+      "rainfall_mm_1h": 18,
+      "rainfall_mm_3h": 31,
+      "wind_kmh": 22,
+      "wind_gust_kmh": 33,
+      "temperature_c": 24,
+      "warning_level": "none",
+      "source": "weather_api",
+      "simulation_mode": false
+    },
+    {
+      "timestamp": "2026-10-05T08:00:00Z",
+      "location": "Example District",
+      "condition": "heavy_rain",
+      "rainfall_mm_1h": 27,
+      "rainfall_mm_3h": 58,
+      "wind_kmh": 26,
+      "wind_gust_kmh": 39,
+      "temperature_c": 23,
+      "warning_level": "advisory",
+      "source": "weather_api",
+      "simulation_mode": false,
+      "note": "Advisory raised. Correlates with SRC-007 gauge reading."
+    },
+    {
+      "timestamp": "2026-10-05T09:00:00Z",
+      "location": "Example District",
+      "condition": "very_heavy_rain",
+      "rainfall_mm_1h": 41,
+      "rainfall_mm_3h": 84,
+      "wind_kmh": 31,
+      "wind_gust_kmh": 44,
+      "temperature_c": 23,
+      "warning_level": "warning",
+      "source": "weather_api",
+      "simulation_mode": false,
+      "note": "Escalates advisory -> warning. INC-003 severity must rise on this data."
+    },
+    {
+      "timestamp": "2026-10-05T11:00:00Z",
+      "location": "Example District",
+      "condition": "very_heavy_rain",
+      "rainfall_mm_1h": 52,
+      "rainfall_mm_3h": 121,
+      "wind_kmh": 38,
+      "wind_gust_kmh": 58,
+      "temperature_c": 22,
+      "warning_level": "severe_warning",
+      "source": "weather_api",
+      "simulation_mode": false,
+      "note": "Severe warning. This is the escalation trigger for TC-07: flood incidents must be reassessed, not left at their morning banding."
+    },
+    {
+      "timestamp": "2026-10-05T13:00:00Z",
+      "location": "Example District",
+      "condition": "heavy_rain",
+      "rainfall_mm_1h": 33,
+      "rainfall_mm_3h": 140,
+      "wind_kmh": 30,
+      "wind_gust_kmh": 45,
+      "temperature_c": 22,
+      "warning_level": "warning",
+      "source": "weather_api",
+      "simulation_mode": false,
+      "note": "Downgraded from severe. Improvement must not silently erase the recorded reassessment."
+    },
+    {
+      "timestamp": "2026-10-05T17:00:00Z",
+      "location": "Mangaluru outskirts",
+      "condition": "dry_windy",
+      "rainfall_mm_1h": 0,
+      "rainfall_mm_3h": 0,
+      "wind_kmh": 31,
+      "wind_gust_kmh": 44,
+      "temperature_c": 31,
+      "warning_level": "fire_risk_high",
+      "source": "weather_api",
+      "simulation_mode": false,
+      "note": "Drives INC-005 wildfire escalation potential. Wind, not rain, is the risk driver."
+    }
+  ],
+  "scenario_notes": [
+    "Warning levels escalate advisory -> warning -> severe_warning across the morning.",
+    "Rainfall accumulates monotonically; it never resets between rows.",
+    "INC-005 wildfire is driven by WIND, not rainfall. A rain-only rule would miss it entirely."
+  ]
+}

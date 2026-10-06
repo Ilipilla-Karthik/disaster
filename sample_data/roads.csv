@@ -1,0 +1,11 @@
+road_id,name,origin_zone,destination_zone,district,latitude,longitude,length_km,access_mode,status,fact_status,reported_at,reported_by
+RD-001,Main Road to Zone A,Response Center 1,Zone A,Example District,12.9735,77.5920,4.2,road,partially_blocked,known,2026-10-05T08:14:00Z,field_team
+RD-002,Main Road to Zone B,Response Center 1,Zone B,Example District,12.9610,77.6080,6.1,road,open,known,2026-10-05T09:06:00Z,field_team
+RD-003,Main Road to Zone C,Response Center 1,Zone C,Example District,12.9510,77.6040,8.7,road,closed,known,2026-10-05T09:50:00Z,government_alert
+RD-004,Zone B Link Road,Zone B,Zone C,Example District,12.9560,77.6065,3.4,road,unknown,unknown,,,
+RD-005,Zone A Bypass,Zone A,Response Center 1,Example District,12.9745,77.5935,4.6,road,unknown,unknown,,,
+RD-006,Zone C Causeway,Zone C,Response Center 1,Example District,12.9525,77.6030,9.2,water,open,known,2026-10-05T09:52:00Z,field_team
+RD-007,Mysuru Ring Road Bypass,Mysuru Depot,Bandipur,Mysuru,12.2900,76.6500,22.5,road,degraded,inferred,2026-10-05T07:40:00Z,geospatial_agent
+RD-008,NH-48 Mangaluru Bypass,Mangaluru Depot,Udupi,Dakshina Kannada,12.9200,74.8400,58.0,road,unknown,unknown,,,
+RD-009,Hassan Hill Road,Hassan Depot,Sakleshpur,Hassan,12.9800,75.6200,14.3,road,closed,known,2026-10-05T10:45:00Z,field_team
+RD-010,Hubballi Industrial Approach Road,Hubballi Depot,Industrial Area,Dharwad,15.3600,75.1300,7.8,road,open,known,2026-10-05T11:20:00Z,government_alert

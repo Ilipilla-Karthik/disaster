@@ -1,0 +1,27 @@
+resource_id,resource_type,location,latitude,longitude,capacity,capability_tags,access_modes,status,deployment_status
+BOAT-001,rescue_boat,Response Center 1,12.9716,77.5946,8,water_rescue|evacuation|swift_water,water,available,recommended
+BOAT-002,rescue_boat,Response Center 1,12.9716,77.5946,8,water_rescue|evacuation|swift_water,water,available,recommended
+BOAT-003,rescue_boat,Response Center 1,12.9716,77.5946,8,water_rescue|evacuation|swift_water,water,available,recommended
+BOAT-004,rescue_boat,Response Center 2,12.9800,77.6000,8,water_rescue|evacuation|swift_water,water,available,recommended
+BOAT-005,rescue_boat,Zone B Staging,12.9600,77.6100,8,water_rescue|evacuation|swift_water,water,available,recommended
+TEAM-001,rescue_team,Response Center 1,12.9716,77.5946,10,water_rescue|evacuation|search_rescue|first_aid,road,available,recommended
+TEAM-002,rescue_team,Response Center 1,12.9716,77.5946,10,water_rescue|evacuation|search_rescue|first_aid,road,available,recommended
+TEAM-003,rescue_team,Response Center 2,12.9800,77.6000,10,water_rescue|evacuation|search_rescue|first_aid,road,available,recommended
+TEAM-004,rescue_team,Zone B Staging,12.9600,77.6100,10,water_rescue|evacuation|search_rescue|first_aid,road,available,recommended
+AMB-001,ambulance,Response Center 1,12.9716,77.5946,4,medical_transport|first_aid,road,available,recommended
+AMB-002,ambulance,Response Center 1,12.9716,77.5946,4,medical_transport|first_aid,road,available,recommended
+AMB-003,ambulance,Response Center 2,12.9800,77.6000,4,medical_transport|first_aid,road,available,recommended
+AMB-004,ambulance,Response Center 2,12.9800,77.6000,4,medical_transport|first_aid,road,available,recommended
+AMB-005,ambulance,Zone B Staging,12.9600,77.6100,4,medical_transport|first_aid,road,available,recommended
+AMB-006,ambulance,Zone B Staging,12.9600,77.6100,4,medical_transport|first_aid,road,available,recommended
+EV-001,emergency_vehicle,Response Center 1,12.9716,77.5946,12,logistics|evacuation|command_support,road,available,recommended
+EV-002,emergency_vehicle,Response Center 1,12.9716,77.5946,12,logistics|evacuation|command_support,road,available,recommended
+EV-003,emergency_vehicle,Response Center 1,12.9716,77.5946,12,logistics|evacuation|command_support,road,available,recommended
+EV-004,emergency_vehicle,Response Center 2,12.9800,77.6000,12,logistics|evacuation|command_support,road,available,recommended
+EV-005,emergency_vehicle,Response Center 2,12.9800,77.6000,12,logistics|evacuation|command_support,road,available,recommended
+EV-006,emergency_vehicle,Zone B Staging,12.9600,77.6100,12,logistics|evacuation|command_support,road,available,recommended
+EV-007,emergency_vehicle,Zone B Staging,12.9600,77.6100,12,logistics|evacuation|command_support,road,available,recommended
+EV-008,emergency_vehicle,Response Center 1,12.9716,77.5946,12,logistics|evacuation|command_support,road,available,recommended
+SHELTER-001,temporary_shelter,Zone A Sports Complex,12.9760,77.5900,50,shelter|shelter_capacity,road,available,recommended
+SHELTER-002,temporary_shelter,Zone B Community Hall,12.9620,77.6070,50,shelter|shelter_capacity,road,available,recommended
+SHELTER-003,temporary_shelter,Zone C School Grounds,12.9500,77.6050,50,shelter|shelter_capacity,road,available,recommended
