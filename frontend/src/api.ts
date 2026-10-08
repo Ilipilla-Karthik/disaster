@@ -151,7 +151,6 @@ export const api = {
   // asserts `fact_status` itself, it only submits the claim and the source.
   reportRoadCondition: (roadId: string, body: unknown) =>
     post<unknown>(`roads/${roadId}/condition`, body),
-  planRoadImpact: (roadId: string) => post<unknown>(`roads/${roadId}/impact`, {}),
 
   plans: () => request<PlanPage>(`${BASE}/plans`),
   generatePlan: (incidentIds: string[]) =>
