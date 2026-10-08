@@ -40,3 +40,5 @@ Thumbs.db
 # ---- Scratch working copy ----
 # Duplicate of backend/ kept for local reference only.
 backend_copy/
+# Archives produced for submission (kept on disk, not tracked)
+*.zip
